@@ -1,7 +1,9 @@
-import React from "react";
+import React,{useState} from "react";
 import { View, Text, SafeAreaView, StyleSheet, Image, Pressable } from "react-native";
 
+
 const Sign_In = ({ navigation }) => {
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.img_wrapper}>
@@ -13,6 +15,7 @@ const Sign_In = ({ navigation }) => {
             </View>
             <Pressable 
                 onPress={() => navigation.navigate('Profile')}
+                //onPress={() => fetchProfile()}
                 style={styles.btn_sign_in}
             >
                 <Text style={styles.txtSignIn}>Sign In</Text>

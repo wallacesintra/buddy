@@ -2,7 +2,8 @@ import React from "react";
 import { SafeAreaView,View, Text, StyleSheet,Image,Pressable } from "react-native";
 import SongWrapper from "../components/SongWrapper";
 
-const Profile = ({ navigation }) => {
+const Profile = (props) => {
+    const {navigation} = props
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.profile_wrapper}>
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 3,
-        gap: 5,
+        gap: 10,
         flexDirection: 'row'
     },
     txt: {
