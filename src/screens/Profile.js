@@ -3,7 +3,7 @@ import { SafeAreaView,View, Text, StyleSheet,Image,Pressable } from "react-nativ
 import SongWrapper from "../components/SongWrapper";
 
 const Profile = (props) => {
-    const {navigation} = props
+    const {navigation, userName} = props
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.profile_wrapper}>
@@ -31,7 +31,7 @@ const Profile = (props) => {
             </View>
 
             <View style={styles.listens}>
-                <Text style={styles.txtListen}>Recent Listens</Text>
+                <Text style={styles.txtListen}>Recently played</Text>
                 <SongWrapper/>
                 <SongWrapper/>
                 <SongWrapper/>
