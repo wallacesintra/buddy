@@ -2,39 +2,39 @@ import React,{useState} from "react";
 import { View, Text, SafeAreaView, StyleSheet, Image, Pressable } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from "react-redux";
-import { signIn,signOut } from "../redux/Login";
+import { signIn,signOut } from "../redux/loginSlice";
 
 const Sign_In = ({ navigation }) => {
-    // const [signedIn, setSignedIn] = useState('false')
+    
     const { isSigned } = useSelector((state) => state.login)
     const dispatch = useDispatch()
 
-    // const storeData = async () => {
-    //     try {
-    //     //   const jsonValue = JSON.stringify(signedIn);
-    //       await AsyncStorage.setItem('my-key', signedIn);
-    //     } catch (e) {
-    //       console.log(e)
-    //     }
-    // }
+    
+    const storeData = async () => {
+        try {
+          const jsonValue = JSON.stringify(isSigned);
+          await AsyncStorage.setItem('my-key', jsonValue);
+        } catch (e) {
+          console.log(e)
+        }
+    }
+
     // console.log(signedIn)
     const handleNavigationChange = () => {
         console.log(isSigned)
         dispatch(signIn())
-        // storeData()
+        storeData()
     }
 
     
     const getData = async () => {
         try {
-          const value = await AsyncStorage.getItem('my-key');
-          if (value !== null) {
-            console.log(value)
-          }
+          const jsonValue = await AsyncStorage.getItem('my-key');
+          return jsonValue != null ? JSON.parse(jsonValue) : null;
         } catch (e) {
           console.log(e)
         }
-      };
+    };
 
     console.log(getData())
 

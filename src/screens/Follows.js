@@ -1,21 +1,37 @@
-import React from "react";
-import { View, SafeAreaView, Text, StyleSheet,Image} from "react-native";
+import React, {useEffect} from "react";
+import { View, SafeAreaView, Text, StyleSheet,Image, FlatList} from "react-native";
+import FollowList from "../components/followList";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchFollows } from "../redux/followsSlice";
 import User from "../components/User";
 
 const Follow = ({navigation}) => {
+
+    const {follows} = useSelector((state) => state.follows)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchFollows())
+        console.log('loading follows...')
+    }, [])
+
+    console.log(follows[0])
+
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Follow</Text>
+            <Text style={styles.title}>Following</Text>
             <View style={styles.follows}>
-                <User
-                    goTo = {()=> navigation.navigate('Profile')}
+                {/*follows?
+                <FlatList
+                 data = {follows}
+                 renderItem={renderItem}
                 />
-                <User
-                    goTo = {()=> navigation.navigate('Profile')}
+                :<Text>loading</Text>
+                */}
+                <FollowList
+                    DATA = {follows}
                 />
-                <User
-                    goTo = {()=> navigation.navigate('Profile')}
-                />                
+                
             </View>
 
         </SafeAreaView>
@@ -39,7 +55,5 @@ const styles = StyleSheet.create({
     follows: {
         margin: 10
     },
-
-
 })
 export default Follow

@@ -1,7 +1,8 @@
 import React from "react";
 import { View,Text,Image, StyleSheet,Pressable } from "react-native";
 
-const SongWrapper = ({navigation}) => {
+const SongWrapper = (props) => {
+    const {album_cover,song_name,artist_name } = props
 
     return (
         <Pressable 
@@ -10,11 +11,11 @@ const SongWrapper = ({navigation}) => {
         >
             <Image
                 style={styles.songCover}
-                source={require('../../assets/test.jpeg')}
+                source={album_cover}
             />
             <View style = {styles.songDetails}>
-                <Text style={[styles.songName, styles.txt]}>New Song</Text>
-                <Text style={[styles.artistName,styles.txt]}>Floersd</Text>
+                <Text style={[styles.songName, styles.txt]}>{song_name}</Text>
+                <Text style={[styles.artistName,styles.txt]}>{artist_name}</Text>
             </View>
         </Pressable>
     )

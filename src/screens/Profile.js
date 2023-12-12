@@ -1,44 +1,52 @@
-import React from "react";
-import { SafeAreaView,View, Text, StyleSheet,Image,Pressable } from "react-native";
-import SongWrapper from "../components/SongWrapper";
+import React,{useEffect} from "react";
+import { SafeAreaView,View, Text, StyleSheet,ScrollView } from "react-native";
+import ProfileDetails from "../components/profileDetails";
+import {useDispatch,useSelector } from 'react-redux'
+import { fetchUserData } from "../redux/userSlice";
+import { fetchFollows } from "../redux/followsSlice";
+import { fetchRecentSongs } from "../redux/recentSongsSlice";
+import RecentListens from "../components/RecentListens";
+
 
 const Profile = (props) => {
-    const {navigation, userName} = props
+    const {navigation} = props
+    const {loading, user_data} = useSelector((state) => state.user)
+    const {follows} = useSelector((state) => state.follows)
+    const { recentSongs } = useSelector((state) => state.recentSongs)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchUserData())
+        dispatch(fetchFollows())
+        dispatch(fetchRecentSongs())
+        console.log('loading...')
+    }, [])
+    
+    if (!loading &&user_data) {
+        //console.log(user_data[0])
+    }
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.profile_wrapper}>
-                <View style={styles.profileImgWrapper}>
-                    <Image
-                        style={styles.imgProfile}
-                        source={require('../../assets/test.jpeg')}
-                        resizeMode="cover"
-                    />
-                </View>
-
-                <View style={styles.profileDetails}>
-                    <Text style= {styles.profileName}>
-                        Wallace
-                    </Text>
-                    <View style={styles.follow}>
-                        <Pressable onPress={() => navigation.navigate('Follow')}>
-                            <Text style={styles.txt}>4 followers</Text>
-                        </Pressable>
-                        <Pressable onPress={() => navigation.navigate('Follow')}>
-                            <Text style={styles.txt}>10 following</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </View>
+            {follows && user_data?
+                <ProfileDetails
+                    profileImg={require('../../assets/test.jpeg')}
+                    user_name = {user_data[0]?.username}
+                    following = {follows?.length}
+                    followers = {follows?.length}
+                    goTo = {() => navigation.navigate('Follow')}
+                />
+            : null}
 
             <View style={styles.listens}>
                 <Text style={styles.txtListen}>Recently played</Text>
-                <SongWrapper/>
-                <SongWrapper/>
-                <SongWrapper/>
-                <SongWrapper/>
-                <SongWrapper/>
-
+                {recentSongs? 
+                 <RecentListens
+                    DATA = {recentSongs}
+                 />:
+                 <Text>loading...</Text>
+                }
             </View>
+
         </SafeAreaView>
     )
 }
@@ -47,51 +55,14 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 20,
         backgroundColor: '#031839',
-        //justifyContent: 'center',
         flex: 1,
-        //alignItems: 'center'
-    },
-    profile_wrapper: {
-        margin: 10,
-        flexDirection: 'row',
-
-    },
-    profileImgWrapper: {
-        margin: 10,
-        width: 120,
-        height: 120,
-        borderRadius: 60,
-        //backgroundColor: 'red',
-        overflow: 'hidden'
-    },
-    imgProfile: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-        resizeMode: 'cover'
-        // margin: 10
-    },
-    profileDetails: {
-        justifyContent: 'center',
-
-    },
-    profileName: {
-        padding: 5,
-        fontSize: 23,
-        color: '#FAFCDB',
-    },
-    follow: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 3,
-        gap: 10,
-        flexDirection: 'row'
     },
     txt: {
         color: '#FAFCDB'
     },
     listens: {
         margin: 15,
+        overflow: 'scroll'
     },
     txtListen: {
         color: '#FAFCDB',

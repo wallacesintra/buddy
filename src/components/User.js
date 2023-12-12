@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet,Image,Pressable} from "react-native";
 
 const User = (props) => {
-    const {goTo} = props
+    const {goTo, user_name, followers,profileImg} = props
 
     return(
         <Pressable 
@@ -11,13 +11,13 @@ const User = (props) => {
         >
             <View style={styles.imgWrapper}>
                 <Image
-                    source={require('../../assets/test.jpeg')}
+                    source={profileImg}
                     style={ styles.userImg}
                 />
             </View>
             <View style={styles.userDetails}>
-                <Text style= {[styles.txt, styles.userName]}> Sintar</Text>
-                <Text style={[styles.txt, styles.followers]}>4 followers</Text>
+                <Text style= {[styles.txt, styles.userName]}> {user_name}</Text>
+                <Text style={[styles.txt, styles.followers]}>{followers} followers</Text>
             </View>
         </Pressable>
     )
