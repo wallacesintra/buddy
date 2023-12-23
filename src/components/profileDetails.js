@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet,Pressable,Image, Text } from "react-native";
 
 const ProfileDetails = (props) => {
-    const {profileImg, user_name,following, followers, goTo} = props
+    const {profileImg, user_name,following, followers, goToFollower, goToFollowing} = props
 
     return (
         <View style={styles.profile_wrapper}>
@@ -19,10 +19,10 @@ const ProfileDetails = (props) => {
                     {user_name}
                 </Text>
                 <View style={styles.follow}>
-                    <Pressable onPress={goTo}>
+                    <Pressable onPress={goToFollower}>
                         <Text style={styles.txt}> {followers} followers</Text>
                     </Pressable>
-                    <Pressable onPress={goTo}>
+                    <Pressable onPress={goToFollowing}>
                         <Text style={styles.txt}> {following} following</Text>
                     </Pressable>
                 </View>

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Sign_In from '../src/screens/Sign_In'
 import Profile from '../src/screens/Profile'
 import Follow from '../src/screens/Follows'
+import Following from '../src/screens/Following';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -27,6 +28,14 @@ function HomeStack() {
                 headerShown: false
                 }}
             />
+            <Stack.Screen 
+              name="Following" 
+              component={Following}
+              options={{ 
+                headerShown: false
+              }} 
+            />
+            
             <Stack.Screen 
               name="Follow" 
               component={Follow}

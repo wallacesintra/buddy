@@ -1,28 +1,25 @@
-import React, {useEffect} from "react";
-import { View, SafeAreaView, Text, StyleSheet,Image, FlatList} from "react-native";
+import React, { useEffect,memo } from "react";
+import { View,SafeAreaView,Text,StyleSheet } from "react-native";
 import FollowList from "../components/followList";
-import { useSelector, useDispatch } from "react-redux";
 import { fetchFollows } from "../redux/followsSlice";
-import User from "../components/User";
+import { useDispatch, useSelector } from "react-redux";
 
-const Follow = ({navigation}) => {
-
+const Following = ({navigation}) => {
     const { follows } = useSelector((state) => state.follows)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(fetchFollows())
-        console.log('loading follows...')
-    }, [])
-
-    // console.log(follows[0])
+        console.log("following loading...")
+    },[])
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Followers</Text>
+            <Text style={styles.title}>Following</Text>
             <View style={styles.follows}>
                 <FollowList
                     DATA = {follows}
+                    goToProfile = {() => navigation.navigate('Profile')}
                 />
             </View>
         </SafeAreaView>
@@ -47,4 +44,5 @@ const styles = StyleSheet.create({
        // margin: 10
     },
 })
-export default Follow
+
+export default Following

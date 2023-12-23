@@ -33,7 +33,8 @@ const Profile = (props) => {
                     user_name = {user_data[0]?.username}
                     following = {follows?.length}
                     followers = {follows?.length}
-                    goTo = {() => navigation.navigate('Follow')}
+                    goToFollower = {() => navigation.navigate('Follow')}
+                    goToFollowing = {() => navigation.navigate('Following')}
                 />
             : null}
 
